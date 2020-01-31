@@ -1,12 +1,17 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["react-hooks"],
+  "plugins": ["react-hooks", "prettier"],
   "rules": {
     "strict": 0,
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
+    "react-hooks/rules-of-hooks": "error", // checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // checks effect dependencies
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
   "settings": {
     "react": {
       "version": "detect"
