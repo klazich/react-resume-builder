@@ -8,6 +8,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md,mdx}\"",
+    "format-all": "prettier --write \"./**/*.{js,jsx,json,css,md,mdx}\"",
     "start": "yarn run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
