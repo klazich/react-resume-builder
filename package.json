@@ -16,6 +16,7 @@
     "release": "standard-version"
   },
   "dependencies": {
+    "faker": "^4.1.0",
     "gatsby": "^2.19.7",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-manifest": "^2.2.39",
