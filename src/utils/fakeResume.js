@@ -40,20 +40,22 @@ const profiles = () =>
       url: faker.internet.url(),
     }))
 
-const basic = () => ({
-  name: faker.name.findName(),
-  label: faker.name.jobTitle(),
-  image: faker.image.avatar(),
-  email: faker.internet.email(),
-  summary: faker.lorem.sentence(),
-  url: faker.internet.url(),
-  location: location(),
-  profiles: profiles(),
-})
+function basic() {
+  return {
+    name: faker.name.findName(),
+    label: faker.name.jobTitle(),
+    image: faker.image.avatar(),
+    email: faker.internet.email(),
+    summary: faker.lorem.sentence(),
+    url: faker.internet.url(),
+    location: location(),
+    profiles: profiles(),
+  }
+}
 
 // Work Property Generator
 
-const workGenerator = function*() {
+function* workGenerator() {
   const [year, month, day] = date()
 
   for (let y = year - randomInRange(6, 15); y <= year - 3; y += 3) {
@@ -73,7 +75,7 @@ const workGenerator = function*() {
 
 // volunteer Property Generator
 
-const volunteerGenerator = function*() {
+function* volunteerGenerator() {
   const [year, month, day] = date()
 
   for (let y = year - randomInRange(3, 12); y <= year - 2; y += 3) {
@@ -101,7 +103,7 @@ const course = () => {
   return `${prefix}${number} - ${name}`.toUpperCase()
 }
 
-const educationGenerator = function*() {
+function* educationGenerator() {
   const [year, month, day] = date()
 
   for (let y = year - randomInRange(5, 15); y < year - 4; y += 4) {
@@ -119,7 +121,7 @@ const educationGenerator = function*() {
 
 // Awards Property Generator
 
-const awardsGenerator = function*() {
+function* awardsGenerator() {
   const [year, month, day] = date()
 
   for (let i = 0; i < randomInRange(1, 5); i += 1) {
@@ -141,7 +143,7 @@ const awardsGenerator = function*() {
 
 // Publications Property Generator
 
-const publicationsGenerator = function*() {
+function* publicationsGenerator() {
   const [year, month, day] = date()
 
   for (let i = 0; i < randomInRange(1, 5); i += 1) {
@@ -162,65 +164,53 @@ const publicationsGenerator = function*() {
   }
 }
 
-export const resume = {
+// Skills Property Generator
+
+function* skillsGenerator() {
+  for (let i = 0; i < randomInRange(7, 18); i += 1) {
+    yield faker.hacker.abbreviation()
+  }
+}
+
+// Projects Property Generator
+
+const projectName = () =>
+  faker.company
+    .bs()
+    .split(' ')
+    .map(s => s[0].toUpperCase() + s.slice(1))
+    .join(' ')
+
+function* projectsGenerator() {
+  const [year, month, day] = date()
+
+  for (let i = 0; i < randomInRange(1, 5); i += 1) {
+    yield {
+      name: projectName(),
+      description: faker.lorem.sentence(),
+      highlights: randomRangeOfItem(faker.lorem.sentence)(2, 3),
+      keywords: randomRangeOfItem(faker.hacker.adjective)(3, 6),
+      date: stringDate(
+        faker.date.between(
+          new Date(year - 20, month, day),
+          new Date(year, month, day)
+        )
+      ),
+      url: faker.internet.url(),
+      roles: randomRangeOfItem(faker.name.jobType)(1, 3),
+    }
+  }
+}
+
+// Resume Object
+
+export default () => ({
   basic: basic(),
   work: [...workGenerator()],
   volunteer: [...volunteerGenerator()],
   education: [...educationGenerator()],
   awards: [...awardsGenerator()],
   publications: [...publicationsGenerator()],
-}
-
-/*
-{
-  skills: [
-    {
-      name: 'Web Development',
-      level: 'Master',
-      keywords: ['HTML', 'CSS', 'Javascript'],
-    },
-    {
-      name: 'Compression',
-      level: 'Master',
-      keywords: ['Mpeg', 'MP4', 'GIF'],
-    },
-  ],
-  languages: [
-    {
-      language: 'English',
-      fluency: 'Native speaker',
-    },
-  ],
-  interests: [
-    {
-      name: 'Wildlife',
-      keywords: ['Ferrets', 'Unicorns'],
-    },
-  ],
-  references: [
-    {
-      name: 'Erlich Bachman',
-      reference:
-        'It is my pleasure to recommend Richard, his performance working as a consultant for Main St. Company proved that he will be a valuable addition to any company.',
-    },
-  ],
-  projects: [
-    {
-      name: 'Miss Direction',
-      description: 'A mapping engine that misguides you',
-      highlights: [
-        'Won award at AIHacks 2016',
-        'Built by all women team of newbie programmers',
-        'Using modern technologies such as GoogleMaps, Chrome Extension and Javascript',
-      ],
-      keywords: ['GoogleMaps', 'Chrome Extension', 'Javascript'],
-      startDate: '2016-08-24',
-      endDate: '2016-08-24',
-      url: 'missdirection.example.com',
-      roles: ['Team lead', 'Designer'],
-      entity: 'Smoogle',
-      type: 'application',
-    },
-  ],
-}
-*/
+  skills: [...skillsGenerator()],
+  projects: [...projectsGenerator()],
+})
