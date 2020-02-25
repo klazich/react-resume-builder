@@ -9,7 +9,7 @@
     "develop": "gatsby develop",
     "format": "prettier --write \"src/**/*.{js,jsx,json,css,md,mdx}\"",
     "format-all": "prettier --write \"./**/*.{js,jsx,json,css,md,mdx}\"",
-    "start": "yarn run develop",
+    "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
@@ -27,7 +27,7 @@
     "gatsby-transformer-sharp": "^2.3.13",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
-    "react-dom": "npm:@hot-loader/react-dom",
+    "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1"
   },
   "devDependencies": {
